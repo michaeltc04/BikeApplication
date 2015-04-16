@@ -33,8 +33,7 @@ import butterknife.InjectView;
 public class BikeListActivity extends Activity {
 
     private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
-    private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
-    private static final int ANIM_DURATION = 500;
+    private static final int ANIM_DURATION = 600;
 
     List<Bike> mBikeList;
     BikeAdapter mBikeAdapter;
@@ -65,12 +64,13 @@ public class BikeListActivity extends Activity {
                 public boolean onPreDraw() {
                     mLogoImage.getViewTreeObserver().removeOnPreDrawListener(this);
 
+                    // Find how far the image needs to move to get to its current position in the animation
                     int[] screenLocation = new int[2];
                     mLogoImage.getLocationOnScreen(screenLocation);
                     mLeftDelta = logoLeft - screenLocation[0];
                     mTopDelta = logoTop - screenLocation[1];
 
-                    // Scale factors to make the large version the same size as the thumbnail
+                    // How far down to scale the image from its default size
                     mWidthScale = (float) .5;
                     mHeightScale = (float) .5;
 
@@ -89,18 +89,28 @@ public class BikeListActivity extends Activity {
         mBikeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                //Get the current location of the bike image for animation use in the next activity
                 int[] screenLocation = new int[2];
-                //mLogoImage.getLocationOnScreen(screenLocation);
                 mBikeListView.getChildAt(i).getLocationOnScreen(screenLocation);
                 Bike bike = mBikeList.get(i);
                 Intent intent = new Intent(mContext, ViewBikeActivity.class);
+
+                //Pass along relevant information for which bike was selected
                 intent.putExtra("brand", bike.getBrandName());
                 intent.putExtra("model", bike.getModelName());
                 intent.putExtra("cost", "" + bike.getPrice());
                 intent.putExtra("imageURL", bike.getImageURL());
-                intent.putExtra("left", screenLocation[0]);
-                intent.putExtra("top", screenLocation[1]);
+                intent.putExtra("bikeLeft", screenLocation[0]);
+                intent.putExtra("bikeTop", screenLocation[1]);
                 intent.putExtra("description", bike.getDescription());
+
+                // Since we are moving 2 Views for this transition, we need to include the other
+                // views properties as well.
+                mLogoImage.getLocationOnScreen(screenLocation);
+                intent.putExtra("logoLeft", screenLocation[0]);
+                intent.putExtra("logoTop", screenLocation[1]);
+
                 startActivity(intent);
 
                 // Override transitions: we don't want the normal window animation in addition
@@ -114,7 +124,8 @@ public class BikeListActivity extends Activity {
 
     /**
      * Generally this is where data would be retrieved from a server / database / string (JSON),
-     * but here we will populate a local List (mBikeList) for simplicity.
+     * but here we will populate a local List (mBikeList) for simplicity.  Each bike object also
+     * shares the same description.
      */
     private void populateBikes() {
         Bike bike;
@@ -125,6 +136,8 @@ public class BikeListActivity extends Activity {
         bike = new Bike("Jamis", "Dakar AMT Pro", 4799.00,"http://www.myjamis.com/SSP%20Applications/JamisBikes/MyJamis/consumer/images/bikes_page/2015_bikes_page/15_dakarxctteam.jpg");
         mBikeList.add(bike);
         bike = new Bike("Salsa", "Bucksaw", 4999.00, "http://salsacycles.com/files/bikes/Bucksaw_1_15_34f_1440x960.jpg");
+        mBikeList.add(bike);
+        bike = new Bike("Bianchi", "Oltre XR2 DURA ACE Di2", 12799.99, "http://www.bianchiusa.com/fileadmin/_processed_/csm_YKBL1UB2_-_OLTRE_XR.2_DURA_ACE_Di2_Compact_9f7fffa4d4.jpg");
         mBikeList.add(bike);
         bike = new Bike("Jamis", "Dakar XCT Team", 6999.00, "http://www.jamisbikes.com/usa/images/15_dakarxctteam.jpg");
         mBikeList.add(bike);
@@ -137,11 +150,11 @@ public class BikeListActivity extends Activity {
     /**
      * The enter animation scales the picture in from its previous thumbnail
      * size/location, colorizing it in parallel. In parallel, the background of the
-     * activity is fading in. When the pictue is in place, the text description
+     * activity is fading in. When the picture is in place, the text description
      * drops down.
      */
     public void runEnterAnimation() {
-        final long duration = (long) (ANIM_DURATION * 1.2);
+        final long duration = (long) (ANIM_DURATION);
 
         // Set starting values for properties we're going to animate. These
         // values scale and position the full size version down to the thumbnail

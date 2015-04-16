@@ -7,10 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +25,7 @@ public class MainActivity extends Activity {
     SharedPreferences.Editor editor;
     @InjectView(R.id.edit_login_name) EditText mLoginName;
     @InjectView(R.id.edit_login_password) EditText mLoginPassword;
-    @InjectView(R.id.image_logo) ImageView mImageView;
+    @InjectView(R.id.image_logo) ImageView mLogoImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +36,7 @@ public class MainActivity extends Activity {
         mUserMap = new android.support.v4.util.ArrayMap<>();
         populateUserMap();
 
+        mLogoImage.setImageResource(R.drawable.logo);
     }
 
     /**
@@ -73,7 +71,7 @@ public class MainActivity extends Activity {
             editor.putString("UserName", name);
             editor.commit();
             int[] screenLocation = new int[2];
-            mImageView.getLocationOnScreen(screenLocation);
+            mLogoImage.getLocationOnScreen(screenLocation);
             Intent i = new Intent(this, BikeListActivity.class);
             i.putExtra("left", screenLocation[0]);
             i.putExtra("top", screenLocation[1]);
@@ -86,29 +84,10 @@ public class MainActivity extends Activity {
 
     }
 
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.register) {
-//            addUser();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
+    /**
+     * OnClick for the Register button that brings up an Alert Dialog for registering as a
+     * user with a username and password.
+     */
     @OnClick(R.id.button_register)
     public void register() {
         LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -133,5 +112,13 @@ public class MainActivity extends Activity {
                    }
                })
                .show();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        // override transitions to skip the standard window animations
+        overridePendingTransition(0, 0);
     }
 }

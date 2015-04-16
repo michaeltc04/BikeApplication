@@ -14,8 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/logo"/>
+        android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
     <TextView
         android:id="@+id/text_login"
@@ -39,8 +38,7 @@
         android:layout_width="@dimen/login_width"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/text_login"
-        android:layout_below="@+id/text_login_name"
-        android:text="abc" />
+        android:layout_below="@+id/text_login_name" />
 
     <TextView
         android:id="@+id/text_login_password"
@@ -55,8 +53,7 @@
         android:layout_width="@dimen/login_width"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/text_login"
-        android:layout_below="@+id/text_login_password"
-        android:text="abc" />
+        android:layout_below="@+id/text_login_password" />
 
     <Button
         android:id="@+id/button_login"

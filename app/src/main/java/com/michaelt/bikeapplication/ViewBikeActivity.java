@@ -3,7 +3,9 @@ package com.michaelt.bikeapplication;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,6 +28,7 @@ import java.net.URL;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 
 public class ViewBikeActivity extends Activity {
@@ -35,8 +38,10 @@ public class ViewBikeActivity extends Activity {
     private static final int ANIM_DURATION = 500;
 
     Context mContext;
-    int mLeftDelta;
-    int mTopDelta;
+    int mBikeLeftDelta;
+    int mBikeTopDelta;
+    int mLogoLeftDelta;
+    int mLogoTopDelta;
     float mWidthScale;
     float mHeightScale;
     @InjectView(R.id.image_bike_inspect_logo) ImageView mLogoImage;
@@ -52,8 +57,10 @@ public class ViewBikeActivity extends Activity {
         ButterKnife.inject(this);
 
         Bundle bundle = getIntent().getExtras();
-        final int bikeTop = bundle.getInt("top");
-        final int bikeLeft = bundle.getInt("left");
+        final int bikeTop = bundle.getInt("bikeTop");
+        final int bikeLeft = bundle.getInt("bikeLeft");
+        final int logoTop = bundle.getInt("logoTop");
+        final int logoLeft = bundle.getInt("logoLeft");
         final String bikeModel = bundle.getString("model");
         final String bikeBrand = bundle.getString("brand");
         final String bikePrice = bundle.getString("cost");
@@ -75,8 +82,13 @@ public class ViewBikeActivity extends Activity {
 
                     int[] screenLocation = new int[2];
                     mBikeImage.getLocationOnScreen(screenLocation);
-                    mLeftDelta = bikeLeft - screenLocation[0];
-                    mTopDelta = bikeTop - screenLocation[1];
+                    mBikeLeftDelta = bikeLeft - screenLocation[0];
+                    mBikeTopDelta = bikeTop - screenLocation[1];
+
+                    mLogoImage.getLocationOnScreen(screenLocation);
+                    mLogoLeftDelta = logoLeft - screenLocation[0];
+                    mLogoTopDelta = logoTop - screenLocation[1];
+
 
                     // Scale factors to make the large version the same size as the thumbnail
                     mWidthScale = (float) 300 / 1776;
@@ -89,6 +101,18 @@ public class ViewBikeActivity extends Activity {
             });
         }
 
+    }
+
+    /**
+     * Creates an Alert Dialog that informs the user that an item has been added to
+     * the non-existing cart
+     */
+    @OnClick(R.id.button_add_to_cart)
+    public void addToCart() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("This bike has been added to your shopping cart!");
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -122,15 +146,15 @@ public class ViewBikeActivity extends Activity {
         mBikeImage.setPivotY(0);
         mBikeImage.setScaleX(mWidthScale);
         mBikeImage.setScaleY(mHeightScale);
-        mBikeImage.setTranslationX(mLeftDelta);
-        mBikeImage.setTranslationY(mTopDelta);
+        mBikeImage.setTranslationX(mBikeLeftDelta);
+        mBikeImage.setTranslationY(mBikeTopDelta);
 
         mLogoImage.setPivotX(0);
         mLogoImage.setPivotY(0);
         mLogoImage.setScaleX(mWidthScale);
         mLogoImage.setScaleY(mHeightScale);
-        mLogoImage.setTranslationX(0);
-        mLogoImage.setTranslationY(0);
+        mLogoImage.setTranslationX(mLogoLeftDelta);
+        mLogoImage.setTranslationY(mLogoTopDelta);
 
         //We'll fade the text in later
         mDescriptionView.setAlpha(0);
@@ -191,15 +215,15 @@ public class ViewBikeActivity extends Activity {
                                         .setDuration(duration)
                                         .scaleX(mWidthScale)
                                         .scaleY(mHeightScale)
-                                        .translationX(mLeftDelta)
-                                        .translationY(mTopDelta)
+                                        .translationX(mBikeLeftDelta)
+                                        .translationY(mBikeTopDelta)
                                         .withEndAction(endAction);
                                 mLogoImage.animate()
                                         .setDuration(duration)
                                         .scaleX((float) .5)
                                         .scaleY((float) .5)
-                                        .translationX(0)
-                                        .translationY(0);
+                                        .translationX(mLogoLeftDelta)
+                                        .translationY(mLogoTopDelta);
                             }
                         });
 
