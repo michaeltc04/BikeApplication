@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Bikes Plus!</string>
     <string name="title_activity_bike_list">Bikes Plus! - Bikes Available</string>
-    <string name="title_activity_view_bike">ViewBikeActivity</string>
+    <string name="title_activity_view_bike">Bikes Plus! - Bike Details</string>
 
     <string name="login_information">LOGIN INFORMATION</string>
     <string name="register">REGISTER</string>
