@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Bikes Plus!</string>
+    <string name="title_activity_bike_list">Bikes Plus! - Bikes Available</string>
+
+    <string name="login_information">LOGIN INFORMATION</string>
+    <string name="register">REGISTER</string>
+    <string name="login_password">Password:</string>
+    <string name="login_name">Login Name:</string>
+    <string name="login_button">SUBMIT</string>
+    <string name="ok">OK</string>
+    <string name="title_activity_view_bike">ViewBikeActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
