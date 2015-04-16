@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.michaelt.bikeapplication.R;
@@ -25,17 +26,18 @@ public class ViewBikeActivity extends Activity {
     private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
     private static final int ANIM_DURATION = 500;
 
-    Context mContext;
-    int mBikeLeftDelta;
-    int mBikeTopDelta;
-    int mLogoLeftDelta;
-    int mLogoTopDelta;
-    float mWidthScale;
-    float mHeightScale;
+    private Context mContext;
+    private int mBikeLeftDelta;
+    private int mBikeTopDelta;
+    private int mLogoLeftDelta;
+    private int mLogoTopDelta;
+    private float mWidthScale;
+    private float mHeightScale;
     @InjectView(R.id.image_bike_inspect_logo) ImageView mLogoImage;
     @InjectView(R.id.image_bike_large) ImageView mBikeImage;
     @InjectView(R.id.text_bike_details) TextView mBikeDetails;
     @InjectView(R.id.text_bike_description) TextView mDescriptionView;
+    @InjectView(R.id.button_add_to_cart) Button mAddToCartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +122,7 @@ public class ViewBikeActivity extends Activity {
      * activity is fading in. When the pictue is in place, the text description
      * drops down.
      */
-    public void runEnterAnimation() {
+    private void runEnterAnimation() {
         final long duration = (long) (ANIM_DURATION * 1.2);
 
         // Set starting values for properties we're going to animate. These
@@ -183,11 +185,13 @@ public class ViewBikeActivity extends Activity {
      * @param endAction This action gets run after the animation completes (this is
      * when we actually switch activities)
      */
-    public void runExitAnimation(final Runnable endAction) {
+    private void runExitAnimation(final Runnable endAction) {
         final long duration = (long) (ANIM_DURATION * 1.1);
 
         mBikeDetails.animate().alpha(0);
+        mAddToCartButton.animate().alpha(0);
         // First, slide/fade text out of the way
+
         mDescriptionView.animate()
                         .translationY(-mDescriptionView.getHeight())
                         .alpha(0)

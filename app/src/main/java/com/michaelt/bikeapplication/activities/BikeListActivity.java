@@ -11,7 +11,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import com.michaelt.bikeapplication.adapter.BikeAdapter;
+import com.michaelt.bikeapplication.adapters.BikeAdapter;
 import com.michaelt.bikeapplication.R;
 import com.michaelt.bikeapplication.objects.Bike;
 import java.util.ArrayList;
@@ -143,7 +143,7 @@ public class BikeListActivity extends Activity {
      * activity is fading in. When the picture is in place, the text description
      * drops down.
      */
-    public void runEnterAnimation() {
+    private void runEnterAnimation() {
         final long duration = (long) (ANIM_DURATION);
 
         // Set starting values for properties we're going to animate. These
@@ -174,7 +174,7 @@ public class BikeListActivity extends Activity {
      * @param endAction This action gets run after the animation completes (this is
      * when we actually switch activities)
      */
-    public void runExitAnimation(final Runnable endAction) {
+    private void runExitAnimation(final Runnable endAction) {
         final long duration = (long) (ANIM_DURATION);
 
         mBikeListView.animate().setDuration(750).alpha(0);

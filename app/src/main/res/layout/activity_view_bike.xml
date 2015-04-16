@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_add_to_cart"
-        android:textSize="20dp"
+        android:textSize="@dimen/bike_details_text_size"
         android:textStyle="bold"/>
 
 </RelativeLayout>

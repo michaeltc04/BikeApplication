@@ -5,11 +5,11 @@ package com.michaelt.bikeapplication.objects;
  */
 public class Bike {
 
-    String mBrandName;
-    String mModelName;
-    double mPrice;
-    String mImageURL;
-    String mDescription;
+    private String mBrandName;
+    private String mModelName;
+    private double mPrice;
+    private String mImageURL;
+    private String mDescription;
 
     public Bike(String theBrandName, String theModelName, double thePrice, String theImageURL) {
         mBrandName = theBrandName;

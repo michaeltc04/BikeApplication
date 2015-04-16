@@ -1,4 +1,4 @@
-package com.michaelt.bikeapplication.adapter;
+package com.michaelt.bikeapplication.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -22,8 +22,8 @@ import java.util.Locale;
 public class BikeAdapter extends BaseAdapter {
 
     private Context mContext;
-    List<Bike> mBikeList;
-    NumberFormat nf;
+    private List<Bike> mBikeList;
+    private NumberFormat nf;
 
     public BikeAdapter(Context theContext, List<Bike> theBikeList) {
         mContext = theContext;

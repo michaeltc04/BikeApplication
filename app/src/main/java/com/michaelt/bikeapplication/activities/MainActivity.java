@@ -22,8 +22,8 @@ public class MainActivity extends Activity {
 
     private Map<String, String> mUserMap;
     private Context mContext;
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
     @InjectView(R.id.edit_login_name) EditText mLoginName;
     @InjectView(R.id.edit_login_password) EditText mLoginPassword;
     @InjectView(R.id.image_logo) ImageView mLogoImage;
