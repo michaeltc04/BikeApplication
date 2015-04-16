@@ -1,4 +1,4 @@
-package com.michaelt.bikeapplication;
+package com.michaelt.bikeapplication.objects;
 
 /**
  * Created by Michael on 4/15/2015.

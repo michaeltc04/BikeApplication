@@ -1,31 +1,19 @@
-package com.michaelt.bikeapplication;
+package com.michaelt.bikeapplication.activities;
 
-import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
+import com.michaelt.bikeapplication.R;
 import java.io.InputStream;
 import java.net.URL;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -71,8 +59,6 @@ public class ViewBikeActivity extends Activity {
         mBikeDetails.setText(bikeBrand + " " + bikeModel + " - $" + bikePrice);
         mDescriptionView.setText(bikeDescription);
 
-
-
         if (savedInstanceState == null) {
             ViewTreeObserver observer = mBikeImage.getViewTreeObserver();
             observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -89,13 +75,11 @@ public class ViewBikeActivity extends Activity {
                     mLogoLeftDelta = logoLeft - screenLocation[0];
                     mLogoTopDelta = logoTop - screenLocation[1];
 
-
                     // Scale factors to make the large version the same size as the thumbnail
                     mWidthScale = (float) 300 / 1776;
                     mHeightScale = (float) 300 / 1080;
 
                     runEnterAnimation();
-
                     return true;
                 }
             });
@@ -166,6 +150,7 @@ public class ViewBikeActivity extends Activity {
                 .scaleY(1)
                 .translationX(0)
                 .translationY(0)
+                .alpha(1)
                 .setInterpolator(sDecelerator);
 
         mBikeImage.animate()

@@ -1,31 +1,21 @@
-package com.michaelt.bikeapplication;
+package com.michaelt.bikeapplication.activities;
 
-import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-
-import com.squareup.picasso.Picasso;
-
+import com.michaelt.bikeapplication.adapter.BikeAdapter;
+import com.michaelt.bikeapplication.R;
+import com.michaelt.bikeapplication.objects.Bike;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -35,13 +25,13 @@ public class BikeListActivity extends Activity {
     private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
     private static final int ANIM_DURATION = 600;
 
-    List<Bike> mBikeList;
-    BikeAdapter mBikeAdapter;
-    Context mContext;
-    int mLeftDelta;
-    int mTopDelta;
-    float mWidthScale;
-    float mHeightScale;
+    private List<Bike> mBikeList;
+    private BikeAdapter mBikeAdapter;
+    private Context mContext;
+    private int mLeftDelta;
+    private int mTopDelta;
+    private float mWidthScale;
+    private float mHeightScale;
     @InjectView(R.id.list_view_bikes) ListView mBikeListView;
     @InjectView(R.id.image_bike_list_logo) ImageView mLogoImage;
 
@@ -185,7 +175,7 @@ public class BikeListActivity extends Activity {
      * when we actually switch activities)
      */
     public void runExitAnimation(final Runnable endAction) {
-        final long duration = (long) (ANIM_DURATION * 1.1);
+        final long duration = (long) (ANIM_DURATION);
 
         mBikeListView.animate().setDuration(750).alpha(0);
 

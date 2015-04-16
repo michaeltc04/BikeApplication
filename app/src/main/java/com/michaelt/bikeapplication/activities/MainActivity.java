@@ -1,4 +1,4 @@
-package com.michaelt.bikeapplication;
+package com.michaelt.bikeapplication.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import com.michaelt.bikeapplication.R;
 import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;

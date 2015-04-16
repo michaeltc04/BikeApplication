@@ -1,4 +1,4 @@
-package com.michaelt.bikeapplication;
+package com.michaelt.bikeapplication.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,16 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.michaelt.bikeapplication.R;
+import com.michaelt.bikeapplication.objects.Bike;
 import com.squareup.picasso.Picasso;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import butterknife.InjectView;
 
 /**
  * Created by Michael on 4/15/2015.
